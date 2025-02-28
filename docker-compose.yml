@@ -1,0 +1,38 @@
+version: '3'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.3  # Specific ES version
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node  # Run as a single node (not a cluster)
+      - bootstrap.memory_lock=true  # Improve performance
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"  # Set Java heap size
+      - xpack.security.enabled=false  # Disable security for simplicity
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data  # Persistent storage
+    ports:
+      - 9200:9200  # REST API port
+      - 9300:9300  # Node communication port
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:9200 >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.3
+    container_name: kibana
+    ports:
+      - 5601:5601
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+
+volumes:
+  elasticsearch-data:
+    driver: local
