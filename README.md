@@ -18,6 +18,13 @@ A powerful API for extracting, storing, and matching company information from we
 
 ## Installation
 
+1. **Clone the Repository**
+
+```bash
+git clone https://github.com/barazaurus/CompanyMatch.git
+cd CompanyMatch
+```
+
 2. **Start the Application**
 
 ```bash
