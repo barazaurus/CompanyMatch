@@ -1,4 +1,3 @@
-// src/elastic-client.js
 const { Client } = require('@elastic/elasticsearch');
 
 const client = new Client({ 

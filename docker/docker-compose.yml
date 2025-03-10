@@ -1,4 +1,5 @@
-version: '3'
+version: '3.8'
+name: companymatch
 services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.11.3  # Specific ES version
@@ -32,6 +33,20 @@ services:
       ELASTICSEARCH_HOSTS: http://elasticsearch:9200
     depends_on:
       - elasticsearch
+
+  api:
+    image: companymatch-api:latest
+    build:
+      context: ..  # Set context to project root
+      dockerfile: docker/Dockerfile
+    environment:
+      NODE_ENV: production
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    ports:
+      - 3000:3000
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
 
 volumes:
   elasticsearch-data:

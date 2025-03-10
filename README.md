@@ -4,10 +4,11 @@ A powerful API for extracting, storing, and matching company information from we
 
 ## Features
 
-- **Web Scraping**: Extract phone numbers, social media links, addresses, and emails from websites
-- **ElasticSearch Integration**: Fast and fuzzy matching capabilities
-- **REST API**: Clean interface for matching and searching company profiles
-- **Dockerized ElasticSearch**: Ready-to-use search engine without complex setup
+- **Complete Docker Containerization**: Simplified setup and deployment
+- **Web Scraping**: Extract contact information from websites
+- **ElasticSearch Integration**: Fast, fuzzy matching capabilities
+- **REST API**: Clean interface for company matching and searching
+- **Microservices Architecture**: Separate containers for API and search engine
 
 ## Prerequisites
 
@@ -17,71 +18,43 @@ A powerful API for extracting, storing, and matching company information from we
 
 ## Installation
 
-1. **Clone the repository**
+2. **Start the Application**
 
 ```bash
-git clone https://github.com/barazaurus/CompanyMatch.git
-cd CompanyMatch
+# Navigate to the docker directory
+cd docker
+
+# Build and start all services
+docker-compose up --build
 ```
 
-2. **Install dependencies**
+The application will:
+- Build the Docker images
+- Start ElasticSearch
+- Initialize the CompanyMatch API
+- Make the API available at `http://localhost:3000`
+
+## Service Management
 
 ```bash
-npm install
+# Start services in the background
+docker-compose up -d
+
+# Stop services
+docker-compose down
+
+# Rebuild services
+docker-compose up --build
+
+# View logs
+docker-compose logs -f
 ```
 
-## Running the Application
+## Accessing Services
 
-You can set up and run the application using individual commands or the convenient setup script.
-
-### Quick Setup (Recommended)
-
-To set up everything in one command:
-
-```bash
-npm run setup
-```
-
-This will:
-- Start ElasticSearch and Kibana containers
-- Run the web crawler to extract data from websites
-- Process the data and index it in ElasticSearch
-
-After setup completes, start the API server:
-
-```bash
-npm start
-```
-
-### Manual Setup
-
-If you prefer to run each step individually:
-
-1. **Start ElasticSearch and Kibana**
-
-```bash
-npm run elastic-up
-```
-
-2. **Run the Web Scraper**
-
-```bash
-npm run crawl
-```
-
-3. **Process and Index Data**
-
-```bash
-npm run process-data
-```
-
-4. **Start the API Server**
-
-```bash
-npm start
-```
-
-The API will be available at `http://localhost:3000`
+- **CompanyMatch API**: `http://localhost:3000`
+- **ElasticSearch**: `http://localhost:9200`
+- **Kibana**: `http://localhost:5601`
 
 ## API Endpoints
 
@@ -179,7 +152,7 @@ npm run test-sample
 
 ## Future Improvements
 
-- Containerize the Node.js API for complete Docker deployment
-- Add Kubernetes configuration for production deployment
-- Implement auto-scaling for the web crawler
+- [x] Containerize the Node.js API for complete Docker deployment
+- [ ] Add Kubernetes configuration for production deployment
+- [ ] Create a CI/CD pipeline for automated deployment
 
