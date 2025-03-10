@@ -125,20 +125,6 @@ POST /api/test-sample
 ```
 Run the matching algorithm against sample test data.
 
-## Docker Services
-
-Currently, only the ElasticSearch and Kibana services are containerized:
-
-```bash
-# Start ElasticSearch and Kibana
-npm run elastic-up
-
-# Stop ElasticSearch and Kibana
-npm run elastic-down
-```
-
-The Node.js API application currently runs directly on the host machine.
-
 ### Kibana Access
 
 You can access Kibana at `http://localhost:5601` to explore and visualize the ElasticSearch data.
